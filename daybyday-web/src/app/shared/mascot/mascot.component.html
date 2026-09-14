@@ -1,0 +1,35 @@
+<div class="mascot" [attr.data-mood]="mood()">
+  <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="mascot__svg">
+    <line x1="60" y1="6" x2="60" y2="18" class="mascot__antenna" />
+    <circle cx="60" cy="6" r="4" class="mascot__antenna-tip" />
+
+    <rect x="16" y="18" width="88" height="80" rx="18" class="mascot__head" />
+
+    @switch (mood()) {
+      @case ('calm') {
+        <circle cx="42" cy="54" r="7" class="mascot__eye" />
+        <circle cx="78" cy="54" r="7" class="mascot__eye" />
+        <path d="M40 74 Q60 92 80 74" class="mascot__mouth" />
+      }
+      @case ('attentive') {
+        <circle cx="42" cy="54" r="7" class="mascot__eye" />
+        <circle cx="78" cy="54" r="7" class="mascot__eye" />
+        <line x1="34" y1="80" x2="86" y2="80" class="mascot__mouth" />
+      }
+      @case ('tense') {
+        <ellipse cx="42" cy="55" rx="6" ry="8" class="mascot__eye" />
+        <ellipse cx="78" cy="55" rx="6" ry="8" class="mascot__eye" />
+        <line x1="32" y1="42" x2="48" y2="47" class="mascot__brow" />
+        <line x1="88" y1="42" x2="72" y2="47" class="mascot__brow" />
+        <path d="M40 82 Q60 70 80 82" class="mascot__mouth" />
+      }
+      @case ('critical') {
+        <line x1="36" y1="49" x2="48" y2="59" class="mascot__eye mascot__eye--x" />
+        <line x1="48" y1="49" x2="36" y2="59" class="mascot__eye mascot__eye--x" />
+        <line x1="72" y1="49" x2="84" y2="59" class="mascot__eye mascot__eye--x" />
+        <line x1="84" y1="49" x2="72" y2="59" class="mascot__eye mascot__eye--x" />
+        <path d="M38 80 L46 86 L54 78 L62 86 L70 78 L78 86 L82 80" class="mascot__mouth" />
+      }
+    }
+  </svg>
+</div>

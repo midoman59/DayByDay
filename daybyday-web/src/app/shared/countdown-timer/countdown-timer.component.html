@@ -1,0 +1,18 @@
+<div class="countdown" [class.countdown--overtime]="isOvertime()">
+  @if (showMascot()) {
+    <app-mascot [remainingRatio]="remainingRatio()" />
+  }
+
+  <div class="countdown__time">{{ isOvertime() ? '+' : '' }}{{ display() }}</div>
+
+  @if (showControls()) {
+    <div class="countdown__controls">
+      @if (!running()) {
+        <button type="button" class="btn btn--primary" (click)="start()">Démarrer</button>
+      } @else {
+        <button type="button" class="btn" (click)="pause()">Pause</button>
+      }
+      <button type="button" class="btn btn--ghost" (click)="reset()">Réinitialiser</button>
+    </div>
+  }
+</div>

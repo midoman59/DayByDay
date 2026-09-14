@@ -1,0 +1,105 @@
+.mascot {
+  display: inline-block;
+  width: 100%;
+  max-width: 160px;
+
+  &__svg {
+    width: 100%;
+    height: auto;
+  }
+
+  &__antenna {
+    stroke: #94a3b8;
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  &__antenna-tip {
+    fill: #94a3b8;
+    transition: fill 0.3s ease;
+  }
+
+  &__head {
+    fill: #e2e8f0;
+    stroke: #cbd5e1;
+    stroke-width: 2;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+
+  &__eye {
+    fill: #1e293b;
+  }
+
+  &__eye--x {
+    stroke: #1e293b;
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  &__brow {
+    stroke: #1e293b;
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  &__mouth {
+    fill: none;
+    stroke: #1e293b;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &[data-mood='calm'] {
+    .mascot__head {
+      fill: #dcfce7;
+      stroke: #86efac;
+    }
+    .mascot__antenna-tip {
+      fill: #22c55e;
+    }
+  }
+
+  &[data-mood='attentive'] {
+    .mascot__head {
+      fill: #fef9c3;
+      stroke: #fde047;
+    }
+    .mascot__antenna-tip {
+      fill: #eab308;
+    }
+  }
+
+  &[data-mood='tense'] {
+    .mascot__head {
+      fill: #ffedd5;
+      stroke: #fdba74;
+    }
+    .mascot__antenna-tip {
+      fill: #f97316;
+    }
+  }
+
+  &[data-mood='critical'] {
+    .mascot__head {
+      fill: #fee2e2;
+      stroke: #fca5a5;
+    }
+    .mascot__antenna-tip {
+      fill: #ef4444;
+    }
+    animation: mascot-shake 0.4s ease-in-out infinite;
+  }
+}
+
+@keyframes mascot-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  75% {
+    transform: translateX(2px) rotate(1deg);
+  }
+}

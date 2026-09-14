@@ -1,0 +1,28 @@
+<div class="page">
+  <a routerLink="/" class="back-link">&larr; Accueil</a>
+
+  <div class="header">
+    <h1>Mes équipes</h1>
+    <a routerLink="/standup/new" class="btn btn--primary">+ Nouvelle équipe</a>
+  </div>
+
+  @if (teams().length === 0) {
+    <p class="empty">Aucune équipe enregistrée. Créez-en une pour lancer votre premier daily chronométré.</p>
+  } @else {
+    <ul class="team-cards">
+      @for (team of teams(); track team.id) {
+        <li class="team-card">
+          <div class="team-card__info">
+            <strong>{{ team.name }}</strong>
+            <span>{{ team.members.length }} membre(s) · {{ totalDuration(team) / 60 | number: '1.0-1' }} min au total</span>
+          </div>
+          <div class="team-card__actions">
+            <a class="btn btn--primary" [routerLink]="['/standup', team.id, 'session']">Lancer</a>
+            <a class="btn" [routerLink]="['/standup', team.id, 'edit']">Modifier</a>
+            <button type="button" class="btn btn--danger" (click)="deleteTeam(team)">Supprimer</button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>

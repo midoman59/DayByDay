@@ -1,0 +1,33 @@
+<div class="page">
+  <a routerLink="/standup" class="back-link">&larr; Mes équipes</a>
+
+  <h1>{{ isEditing ? 'Modifier une équipe' : 'Nouvelle équipe' }}</h1>
+
+  <label class="field">
+    Nom de l'équipe
+    <input type="text" [ngModel]="teamName()" (ngModelChange)="teamName.set($event)" placeholder="Ex: Squad Alpha" />
+  </label>
+
+  <h2>Membres</h2>
+
+  @if (members().length === 0) {
+    <p class="empty">Ajoutez au moins un membre.</p>
+  }
+
+  <ul class="members">
+    @for (member of members(); track member.id) {
+      <li class="member-row">
+        <input type="text" [ngModel]="member.name" (ngModelChange)="member.name = $event" placeholder="Nom" class="member-row__name" />
+        <input type="number" min="0.5" step="0.5" [ngModel]="member.allocatedMinutes" (ngModelChange)="member.allocatedMinutes = $event" class="member-row__minutes" />
+        <span class="member-row__unit">min</span>
+        <button type="button" class="btn btn--danger" (click)="removeMember(member)">Retirer</button>
+      </li>
+    }
+  </ul>
+
+  <button type="button" class="btn" (click)="addMember()">+ Ajouter un membre</button>
+
+  <div class="actions">
+    <button type="button" class="btn btn--primary" [disabled]="!canSave" (click)="save()">Enregistrer</button>
+  </div>
+</div>

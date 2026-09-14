@@ -1,0 +1,41 @@
+@if (team) {
+  <div class="page">
+    <a routerLink="/standup" class="back-link">&larr; Mes équipes</a>
+    <h1>{{ team.name }}</h1>
+
+    <ol class="roster">
+      @for (member of team.members; track member.id; let i = $index) {
+        <li [class.roster__item--current]="isCurrent(i)" [class.roster__item--done]="isDone(i)" class="roster__item">
+          {{ member.name }}
+        </li>
+      }
+    </ol>
+
+    @if (!isFinished()) {
+      @if (currentMember(); as member) {
+        <div class="speaker">
+          <h2>{{ member.name }}</h2>
+          <app-countdown-timer [durationSeconds]="member.allocatedSeconds" [autoStart]="true" />
+        </div>
+
+        @if (nextMember(); as next) {
+          <p class="next-up">Suivant : {{ next.name }} ({{ next.allocatedSeconds / 60 }} min)</p>
+        }
+
+        <div class="session-controls">
+          <button type="button" class="btn" [disabled]="currentIndex() === 0" (click)="goToPrevious()">
+            &larr; Précédent
+          </button>
+          <button type="button" class="btn btn--primary" (click)="goToNext()">
+            {{ nextMember() ? 'Suivant →' : 'Terminer' }}
+          </button>
+        </div>
+      }
+    } @else {
+      <div class="done-screen">
+        <p>Daily terminé ! Tous les membres sont passés.</p>
+        <button type="button" class="btn btn--primary" (click)="restart()">Recommencer</button>
+      </div>
+    }
+  </div>
+}
