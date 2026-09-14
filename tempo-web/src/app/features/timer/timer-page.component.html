@@ -1,33 +1,37 @@
 <div class="page">
-  <a routerLink="/" class="back-link">&larr; Accueil</a>
+  <a mat-icon-button routerLink="/" class="back-btn" aria-label="Accueil">
+    <span class="material-symbols-rounded">arrow_back</span>
+  </a>
 
   @if (phase() === 'setup') {
     <h1>Compte à rebours</h1>
 
-    <div class="presets">
+    <mat-button-toggle-group class="presets" [value]="seconds() === 0 ? minutes() : null" (change)="selectPreset($event.value)" aria-label="Durées prédéfinies">
       @for (p of presets; track p) {
-        <button type="button" class="btn" [class.btn--primary]="minutes() === p && seconds() === 0" (click)="selectPreset(p)">
-          {{ p }} min
-        </button>
+        <mat-button-toggle [value]="p">{{ p }} min</mat-button-toggle>
       }
-    </div>
+    </mat-button-toggle-group>
 
     <div class="manual-input">
-      <label>
-        Minutes
-        <input type="number" min="0" max="180" [ngModel]="minutes()" (ngModelChange)="minutes.set($event)" />
-      </label>
-      <label>
-        Secondes
-        <input type="number" min="0" max="59" [ngModel]="seconds()" (ngModelChange)="seconds.set($event)" />
-      </label>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Minutes</mat-label>
+        <input matInput type="number" min="0" max="180" [ngModel]="minutes()" (ngModelChange)="minutes.set($event)" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Secondes</mat-label>
+        <input matInput type="number" min="0" max="59" [ngModel]="seconds()" (ngModelChange)="seconds.set($event)" />
+      </mat-form-field>
     </div>
 
-    <button type="button" class="btn btn--primary btn--start" [disabled]="durationSeconds() <= 0" (click)="begin()">
+    <button mat-fab extended color="primary" class="btn-start" [disabled]="durationSeconds() <= 0" (click)="begin()">
+      <span class="material-symbols-rounded">play_arrow</span>
       Démarrer
     </button>
   } @else {
     <app-countdown-timer [durationSeconds]="durationSeconds()" [autoStart]="true" />
-    <button type="button" class="btn btn--ghost" (click)="backToSetup()">Nouveau minuteur</button>
+    <button mat-stroked-button (click)="backToSetup()">
+      <span class="material-symbols-rounded">refresh</span>
+      Nouveau minuteur
+    </button>
   }
 </div>

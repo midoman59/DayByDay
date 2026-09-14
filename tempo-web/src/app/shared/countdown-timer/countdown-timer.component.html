@@ -8,11 +8,20 @@
   @if (showControls()) {
     <div class="countdown__controls">
       @if (!running()) {
-        <button type="button" class="btn btn--primary" (click)="start()">Démarrer</button>
+        <button mat-fab extended color="primary" (click)="start()">
+          <span class="material-symbols-rounded">play_arrow</span>
+          Démarrer
+        </button>
       } @else {
-        <button type="button" class="btn" (click)="pause()">Pause</button>
+        <button mat-fab extended (click)="pause()">
+          <span class="material-symbols-rounded">pause</span>
+          Pause
+        </button>
       }
-      <button type="button" class="btn btn--ghost" (click)="reset()">Réinitialiser</button>
+      <button mat-stroked-button (click)="reset()">
+        <span class="material-symbols-rounded">restart_alt</span>
+        Réinitialiser
+      </button>
     </div>
   }
 </div>

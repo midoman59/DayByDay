@@ -1,9 +1,14 @@
 <div class="page">
-  <a routerLink="/" class="back-link">&larr; Accueil</a>
+  <a mat-icon-button routerLink="/" class="back-btn" aria-label="Accueil">
+    <span class="material-symbols-rounded">arrow_back</span>
+  </a>
 
   <div class="header">
     <h1>Mes équipes</h1>
-    <a routerLink="/standup/new" class="btn btn--primary">+ Nouvelle équipe</a>
+    <a mat-fab extended color="primary" routerLink="/standup/new">
+      <span class="material-symbols-rounded">add</span>
+      Nouvelle équipe
+    </a>
   </div>
 
   @if (teams().length === 0) {
@@ -11,16 +16,25 @@
   } @else {
     <ul class="team-cards">
       @for (team of teams(); track team.id) {
-        <li class="team-card">
-          <div class="team-card__info">
-            <strong>{{ team.name }}</strong>
-            <span>{{ team.members.length }} membre(s) · {{ totalDuration(team) / 60 | number: '1.0-1' }} min au total</span>
-          </div>
-          <div class="team-card__actions">
-            <a class="btn btn--primary" [routerLink]="['/standup', team.id, 'session']">Lancer</a>
-            <a class="btn" [routerLink]="['/standup', team.id, 'edit']">Modifier</a>
-            <button type="button" class="btn btn--danger" (click)="deleteTeam(team)">Supprimer</button>
-          </div>
+        <li>
+          <mat-card appearance="outlined" class="team-card">
+            <div class="team-card__info">
+              <strong>{{ team.name }}</strong>
+              <span>{{ team.members.length }} membre(s) · {{ totalDuration(team) / 60 | number: '1.0-1' }} min au total</span>
+            </div>
+            <div class="team-card__actions">
+              <a mat-flat-button color="primary" [routerLink]="['/standup', team.id, 'session']">
+                <span class="material-symbols-rounded">play_arrow</span>
+                Lancer
+              </a>
+              <a mat-icon-button [routerLink]="['/standup', team.id, 'edit']" aria-label="Modifier">
+                <span class="material-symbols-rounded">edit</span>
+              </a>
+              <button mat-icon-button color="warn" (click)="deleteTeam(team)" aria-label="Supprimer">
+                <span class="material-symbols-rounded">delete</span>
+              </button>
+            </div>
+          </mat-card>
         </li>
       }
     </ul>

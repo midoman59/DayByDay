@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TeamRepository } from '../../../core/services/team-repository';
 import { Team, TeamMember } from '../../../core/models/team.model';
 
@@ -18,7 +23,7 @@ function createId(): string {
 
 @Component({
   selector: 'app-team-edit',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSlideToggleModule],
   templateUrl: './team-edit.component.html',
   styleUrl: './team-edit.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

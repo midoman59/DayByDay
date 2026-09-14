@@ -1,18 +1,37 @@
 <div class="home">
-  <h1>Tempo</h1>
+  <div class="brand">
+    <span class="material-symbols-rounded brand__icon">bolt</span>
+    <h1>Tempo</h1>
+  </div>
   <p class="tagline">Vos minuteurs, en équipe ou en solo.</p>
 
   <div class="cards">
-    <a routerLink="/timer" class="card">
-      <span class="card__icon">⏱️</span>
-      <span class="card__title">Compte à rebours</span>
-      <span class="card__desc">Chronométrer une session de travail ou une présentation.</span>
+    <a routerLink="/timer" class="card-link">
+      <mat-card appearance="raised" class="card" matRipple>
+        <span class="card__icon-badge">
+          <span class="material-symbols-rounded">timer</span>
+        </span>
+        <mat-card-header>
+          <mat-card-title>Compte à rebours</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Chronométrer une session de travail ou une présentation.</p>
+        </mat-card-content>
+      </mat-card>
     </a>
 
-    <a routerLink="/standup" class="card">
-      <span class="card__icon">🧑‍🤝‍🧑</span>
-      <span class="card__title">Daily standup</span>
-      <span class="card__desc">Créer une équipe et chronométrer le tour de table.</span>
+    <a routerLink="/standup" class="card-link">
+      <mat-card appearance="raised" class="card" matRipple>
+        <span class="card__icon-badge card__icon-badge--tertiary">
+          <span class="material-symbols-rounded">groups</span>
+        </span>
+        <mat-card-header>
+          <mat-card-title>Daily standup</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Créer une équipe et chronométrer le tour de table.</p>
+        </mat-card-content>
+      </mat-card>
     </a>
   </div>
 </div>

@@ -1,25 +1,28 @@
 <div class="page">
-  <a routerLink="/standup" class="back-link">&larr; Mes équipes</a>
+  <a mat-icon-button routerLink="/standup" class="back-btn" aria-label="Mes équipes">
+    <span class="material-symbols-rounded">arrow_back</span>
+  </a>
 
   <h1>{{ isEditing ? 'Modifier une équipe' : 'Nouvelle équipe' }}</h1>
 
-  <label class="field">
-    Nom de l'équipe
-    <input type="text" [ngModel]="teamName()" (ngModelChange)="teamName.set($event)" placeholder="Ex: Squad Alpha" />
-  </label>
+  <mat-form-field appearance="outline">
+    <mat-label>Nom de l'équipe</mat-label>
+    <input matInput type="text" [ngModel]="teamName()" (ngModelChange)="teamName.set($event)" placeholder="Ex: Squad Alpha" />
+  </mat-form-field>
 
-  <label class="uniform-toggle">
-    <input type="checkbox" [ngModel]="useUniformTime()" (ngModelChange)="useUniformTime.set($event)" />
-    Même temps pour tout le monde
-  </label>
+  <div class="uniform-row">
+    <mat-slide-toggle [ngModel]="useUniformTime()" (ngModelChange)="useUniformTime.set($event)">
+      Même temps pour tout le monde
+    </mat-slide-toggle>
 
-  @if (useUniformTime()) {
-    <label class="field field--inline">
-      Temps par personne
-      <input type="number" min="0.5" step="0.5" [ngModel]="uniformMinutes()" (ngModelChange)="uniformMinutes.set($event)" class="uniform-toggle__minutes" />
-      min
-    </label>
-  }
+    @if (useUniformTime()) {
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="uniform-row__minutes">
+        <mat-label>Temps par personne</mat-label>
+        <input matInput type="number" min="0.5" step="0.5" [ngModel]="uniformMinutes()" (ngModelChange)="uniformMinutes.set($event)" />
+        <span matSuffix>min</span>
+      </mat-form-field>
+    }
+  </div>
 
   <h2>Membres</h2>
 
@@ -30,19 +33,33 @@
   <ul class="members">
     @for (member of members(); track member.id) {
       <li class="member-row">
-        <input type="text" [ngModel]="member.name" (ngModelChange)="member.name = $event" placeholder="Nom" class="member-row__name" />
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="member-row__name">
+          <mat-label>Nom</mat-label>
+          <input matInput type="text" [ngModel]="member.name" (ngModelChange)="member.name = $event" />
+        </mat-form-field>
         @if (!useUniformTime()) {
-          <input type="number" min="0.5" step="0.5" [ngModel]="member.allocatedMinutes" (ngModelChange)="member.allocatedMinutes = $event" class="member-row__minutes" />
-          <span class="member-row__unit">min</span>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="member-row__minutes">
+            <mat-label>Temps</mat-label>
+            <input matInput type="number" min="0.5" step="0.5" [ngModel]="member.allocatedMinutes" (ngModelChange)="member.allocatedMinutes = $event" />
+            <span matSuffix>min</span>
+          </mat-form-field>
         }
-        <button type="button" class="btn btn--danger" (click)="removeMember(member)">Retirer</button>
+        <button mat-icon-button color="warn" (click)="removeMember(member)" aria-label="Retirer">
+          <span class="material-symbols-rounded">close</span>
+        </button>
       </li>
     }
   </ul>
 
-  <button type="button" class="btn" (click)="addMember()">+ Ajouter un membre</button>
+  <button mat-stroked-button (click)="addMember()">
+    <span class="material-symbols-rounded">add</span>
+    Ajouter un membre
+  </button>
 
   <div class="actions">
-    <button type="button" class="btn btn--primary" [disabled]="!canSave" (click)="save()">Enregistrer</button>
+    <button mat-fab extended color="primary" [disabled]="!canSave" (click)="save()">
+      <span class="material-symbols-rounded">check</span>
+      Enregistrer
+    </button>
   </div>
 </div>

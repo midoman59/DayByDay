@@ -1,13 +1,27 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { CountdownTimerComponent } from '../../shared/countdown-timer/countdown-timer.component';
 
 const PRESETS_MINUTES = [1, 3, 5, 10, 15, 20];
 
 @Component({
   selector: 'app-timer-page',
-  imports: [FormsModule, RouterLink, CountdownTimerComponent],
+  imports: [
+    FormsModule,
+    RouterLink,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    CountdownTimerComponent,
+  ],
   templateUrl: './timer-page.component.html',
   styleUrl: './timer-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

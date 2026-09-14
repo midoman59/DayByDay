@@ -1,11 +1,16 @@
 @if (team) {
   <div class="page">
-    <a routerLink="/standup" class="back-link">&larr; Mes équipes</a>
+    <a mat-icon-button routerLink="/standup" class="back-btn" aria-label="Mes équipes">
+      <span class="material-symbols-rounded">arrow_back</span>
+    </a>
     <h1>{{ team.name }}</h1>
 
     <ol class="roster">
       @for (member of team.members; track member.id; let i = $index) {
         <li [class.roster__item--current]="isCurrent(i)" [class.roster__item--done]="isDone(i)" class="roster__item">
+          @if (isDone(i)) {
+            <span class="material-symbols-rounded roster__check">check</span>
+          }
           {{ member.name }}
         </li>
       }
@@ -23,18 +28,24 @@
         }
 
         <div class="session-controls">
-          <button type="button" class="btn" [disabled]="currentIndex() === 0" (click)="goToPrevious()">
-            &larr; Précédent
+          <button mat-stroked-button [disabled]="currentIndex() === 0" (click)="goToPrevious()">
+            <span class="material-symbols-rounded">arrow_back</span>
+            Précédent
           </button>
-          <button type="button" class="btn btn--primary" (click)="goToNext()">
-            {{ nextMember() ? 'Suivant →' : 'Terminer' }}
+          <button mat-flat-button color="primary" (click)="goToNext()">
+            {{ nextMember() ? 'Suivant' : 'Terminer' }}
+            <span class="material-symbols-rounded">{{ nextMember() ? 'arrow_forward' : 'flag' }}</span>
           </button>
         </div>
       }
     } @else {
       <div class="done-screen">
+        <span class="material-symbols-rounded done-screen__icon">celebration</span>
         <p>Daily terminé ! Tous les membres sont passés.</p>
-        <button type="button" class="btn btn--primary" (click)="restart()">Recommencer</button>
+        <button mat-flat-button color="primary" (click)="restart()">
+          <span class="material-symbols-rounded">replay</span>
+          Recommencer
+        </button>
       </div>
     }
   </div>

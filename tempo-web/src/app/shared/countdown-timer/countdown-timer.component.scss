@@ -2,22 +2,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 
   &__time {
     font-size: clamp(2.5rem, 10vw, 4.5rem);
     font-variant-numeric: tabular-nums;
-    font-weight: 700;
-    color: #1e293b;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--mat-sys-on-surface);
     transition: color 0.3s ease;
   }
 
   &--overtime &__time {
-    color: #ef4444;
+    color: var(--mat-sys-error);
   }
 
   &__controls {
     display: flex;
+    align-items: center;
     gap: 0.75rem;
   }
 }

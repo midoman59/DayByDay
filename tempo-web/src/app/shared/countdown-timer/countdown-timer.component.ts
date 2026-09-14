@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MascotComponent } from '../mascot/mascot.component';
 
 @Component({
   selector: 'app-countdown-timer',
-  imports: [MascotComponent],
+  imports: [MascotComponent, MatButtonModule],
   templateUrl: './countdown-timer.component.html',
   styleUrl: './countdown-timer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

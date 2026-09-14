@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { TeamRepository } from '../../../core/services/team-repository';
 import { Team } from '../../../core/models/team.model';
 
 @Component({
   selector: 'app-team-list',
-  imports: [RouterLink, DecimalPipe],
+  imports: [RouterLink, DecimalPipe, MatButtonModule, MatCardModule, MatIconModule],
   templateUrl: './team-list.component.html',
   styleUrl: './team-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

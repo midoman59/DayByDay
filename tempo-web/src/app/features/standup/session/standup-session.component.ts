@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { TeamRepository } from '../../../core/services/team-repository';
 import { Team } from '../../../core/models/team.model';
 import { CountdownTimerComponent } from '../../../shared/countdown-timer/countdown-timer.component';
 
 @Component({
   selector: 'app-standup-session',
-  imports: [RouterLink, CountdownTimerComponent],
+  imports: [RouterLink, CountdownTimerComponent, MatButtonModule, MatIconModule],
   templateUrl: './standup-session.component.html',
   styleUrl: './standup-session.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
