@@ -1,0 +1,66 @@
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.back-btn {
+  align-self: flex-start;
+}
+
+h1 {
+  margin: 0;
+  font-weight: 500;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+
+  &__btn {
+    height: 2.75rem;
+    border: none;
+    border-radius: 14px;
+    background: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: var(--mat-sys-surface-container-highest);
+    }
+
+    &--selected {
+      background: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.actions {
+  margin-top: 0.5rem;
+}

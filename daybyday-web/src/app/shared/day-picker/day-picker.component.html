@@ -1,0 +1,14 @@
+<div class="day-picker" role="group" aria-label="Jours de la semaine">
+  @for (day of days; track day.value) {
+    <button
+      type="button"
+      class="day-picker__btn"
+      [class.day-picker__btn--selected]="isSelected(day.value)"
+      matRipple
+      (click)="toggle(day.value)"
+      [attr.aria-pressed]="isSelected(day.value)"
+    >
+      {{ day.label }}
+    </button>
+  }
+</div>

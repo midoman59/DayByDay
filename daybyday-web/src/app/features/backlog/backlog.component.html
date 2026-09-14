@@ -1,0 +1,48 @@
+<div class="page">
+  <header class="page-header">
+    <a mat-icon-button routerLink="/today" class="back-btn" aria-label="Retour à Today">
+      <span class="material-symbols-rounded">arrow_back</span>
+    </a>
+    <h1>Backlog</h1>
+    <a mat-icon-button routerLink="/backlog/new" aria-label="Ajouter au backlog">
+      <span class="material-symbols-rounded">add</span>
+    </a>
+  </header>
+
+  <div class="search">
+    <span class="material-symbols-rounded search__icon">search</span>
+    <input
+      type="text"
+      class="search__input"
+      placeholder="Rechercher dans le backlog..."
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+    />
+  </div>
+
+  @if (items().length === 0) {
+    <p class="empty">Le backlog est vide. Videz votre tête ici.</p>
+  } @else {
+    <ul class="backlog-list">
+      @for (item of items(); track item.id) {
+        <li class="backlog-row">
+          <span class="material-symbols-rounded backlog-row__type-icon">
+            {{ item.type === 'habit' ? 'autorenew' : 'radio_button_unchecked' }}
+          </span>
+          <div class="backlog-row__info">
+            <span class="backlog-row__name">{{ item.name }}</span>
+            @if (item.type === 'habit') {
+              <span class="backlog-row__days">{{ daysLabel(item.daysOfWeek) }}</span>
+            }
+          </div>
+          <a mat-icon-button [routerLink]="['/backlog', item.id, 'edit']" aria-label="Modifier">
+            <span class="material-symbols-rounded">edit</span>
+          </a>
+          <button mat-icon-button (click)="remove(item)" aria-label="Supprimer">
+            <span class="material-symbols-rounded">delete</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

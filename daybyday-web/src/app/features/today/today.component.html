@@ -1,0 +1,47 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <span class="page-header__eyebrow">{{ dateLabel }}</span>
+      <h1>Today</h1>
+    </div>
+    <a mat-icon-button routerLink="/backlog" aria-label="Backlog">
+      <span class="material-symbols-rounded">inventory_2</span>
+    </a>
+  </header>
+
+  <form class="quick-add" (ngSubmit)="quickAdd()">
+    <span class="material-symbols-rounded quick-add__icon">add</span>
+    <input
+      type="text"
+      class="quick-add__input"
+      placeholder="Ajouter une tâche à aujourd'hui..."
+      name="quickAdd"
+      [ngModel]="quickAddName()"
+      (ngModelChange)="quickAddName.set($event)"
+    />
+  </form>
+
+  <a mat-stroked-button routerLink="/today/add" class="from-backlog-btn">
+    <span class="material-symbols-rounded">playlist_add</span>
+    Depuis le backlog
+  </a>
+
+  @if (rows().length === 0) {
+    <p class="empty">Rien pour aujourd'hui. Ajoutez une tâche ou piochez dans le backlog.</p>
+  } @else {
+    <ul class="today-list">
+      @for (row of rows(); track row.itemId) {
+        <li class="today-item" [class.today-item--done]="row.done">
+          <mat-checkbox [checked]="row.done" (change)="toggleDone(row.itemId)"></mat-checkbox>
+          <span class="today-item__name">{{ row.item.name }}</span>
+          @if (row.item.type === 'habit') {
+            <span class="material-symbols-rounded today-item__habit-icon" title="Habitude">autorenew</span>
+          }
+          <button mat-icon-button class="today-item__remove" (click)="remove(row.itemId)" aria-label="Retirer de aujourd'hui">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

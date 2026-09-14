@@ -1,0 +1,37 @@
+<div class="page">
+  <a mat-icon-button routerLink="/backlog" class="back-btn" aria-label="Retour au backlog">
+    <span class="material-symbols-rounded">arrow_back</span>
+  </a>
+
+  <h1>{{ isEditing ? 'Modifier' : 'Ajouter au backlog' }}</h1>
+
+  @if (!isEditing) {
+    <div class="type-toggle" role="group" aria-label="Type d'élément">
+      <button type="button" class="type-toggle__btn" [class.type-toggle__btn--selected]="type() === 'task'" (click)="type.set('task')">
+        Task
+      </button>
+      <button type="button" class="type-toggle__btn" [class.type-toggle__btn--selected]="type() === 'habit'" (click)="type.set('habit')">
+        Habit
+      </button>
+    </div>
+  }
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input matInput type="text" [ngModel]="name()" (ngModelChange)="name.set($event)" placeholder="Ex: Appeler le plombier" />
+  </mat-form-field>
+
+  @if (type() === 'habit') {
+    <div class="section">
+      <span class="section__label">Jours prévus</span>
+      <app-day-picker [value]="daysOfWeek()" (valueChange)="daysOfWeek.set($event)" />
+    </div>
+  }
+
+  <div class="actions">
+    <button mat-fab extended color="primary" [disabled]="!canSave" (click)="save()">
+      <span class="material-symbols-rounded">check</span>
+      Enregistrer
+    </button>
+  </div>
+</div>

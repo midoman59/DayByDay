@@ -1,0 +1,38 @@
+<div class="page">
+  <a mat-icon-button routerLink="/today" class="back-btn" aria-label="Retour à Today">
+    <span class="material-symbols-rounded">arrow_back</span>
+  </a>
+
+  <h1>Depuis le backlog</h1>
+
+  <div class="search">
+    <span class="material-symbols-rounded search__icon">search</span>
+    <input
+      type="text"
+      class="search__input"
+      placeholder="Rechercher..."
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+    />
+  </div>
+
+  @if (availableItems().length === 0) {
+    <p class="empty">Rien à ajouter — tout est déjà dans aujourd'hui, ou le backlog est vide.</p>
+  } @else {
+    <ul class="pick-list">
+      @for (item of availableItems(); track item.id) {
+        <li class="pick-row">
+          <div class="pick-row__info">
+            <span class="pick-row__name">{{ item.name }}</span>
+            @if (item.type === 'habit') {
+              <span class="pick-row__days">{{ daysLabel(item.daysOfWeek) }}</span>
+            }
+          </div>
+          <button mat-icon-button (click)="add(item.id)" aria-label="Ajouter à aujourd'hui">
+            <span class="material-symbols-rounded">add_circle</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>
