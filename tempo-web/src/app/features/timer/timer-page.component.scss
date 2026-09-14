@@ -54,8 +54,21 @@ h1 {
   }
 
   ::ng-deep .mdc-evolution-chip__action--primary {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
     width: 100%;
+  }
+
+  // La coche de sélection passe après le texte au lieu d'avant.
+  ::ng-deep .mdc-evolution-chip__graphic {
+    order: 2;
+    margin-inline-start: 4px;
+    margin-inline-end: 0;
+  }
+
+  ::ng-deep .mdc-evolution-chip__text-label {
+    order: 1;
   }
 }
 
