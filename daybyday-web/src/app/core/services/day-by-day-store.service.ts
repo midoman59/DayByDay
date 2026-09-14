@@ -43,15 +43,21 @@ export class DayByDayStoreService {
   }
 
   addHabit(name: string, daysOfWeek: number[]): HabitItem {
+    const sorted = [...daysOfWeek].sort((a, b) => a - b);
     const item: HabitItem = {
       id: createId(),
       type: 'habit',
       name: name.trim(),
-      daysOfWeek: [...daysOfWeek].sort((a, b) => a - b),
+      daysOfWeek: sorted,
       createdAt: new Date().toISOString(),
     };
     this.backlogSignal.update((list) => [...list, item]);
     this.persist();
+    // Si l'habitude est prévue aujourd'hui, elle rejoint Today immédiatement
+    // plutôt que d'attendre le prochain changement de jour.
+    if (sorted.includes(new Date().getDay())) {
+      this.addToToday(item.id);
+    }
     return item;
   }
 
@@ -100,6 +106,9 @@ export class DayByDayStoreService {
     if (!sorted.includes(weekday)) {
       // Retirée immédiatement de Today si le jour actuel n'est plus prévu.
       this.removeFromToday(id);
+    } else if (!this.todaySignal().some((e) => e.itemId === id)) {
+      // À l'inverse, si le jour actuel vient d'être ajouté, elle rejoint Today immédiatement.
+      this.addToToday(id);
     } else {
       this.persist();
     }
