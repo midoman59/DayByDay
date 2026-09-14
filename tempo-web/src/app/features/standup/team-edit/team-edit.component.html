@@ -8,6 +8,19 @@
     <input type="text" [ngModel]="teamName()" (ngModelChange)="teamName.set($event)" placeholder="Ex: Squad Alpha" />
   </label>
 
+  <label class="uniform-toggle">
+    <input type="checkbox" [ngModel]="useUniformTime()" (ngModelChange)="useUniformTime.set($event)" />
+    Même temps pour tout le monde
+  </label>
+
+  @if (useUniformTime()) {
+    <label class="field field--inline">
+      Temps par personne
+      <input type="number" min="0.5" step="0.5" [ngModel]="uniformMinutes()" (ngModelChange)="uniformMinutes.set($event)" class="uniform-toggle__minutes" />
+      min
+    </label>
+  }
+
   <h2>Membres</h2>
 
   @if (members().length === 0) {
@@ -18,8 +31,10 @@
     @for (member of members(); track member.id) {
       <li class="member-row">
         <input type="text" [ngModel]="member.name" (ngModelChange)="member.name = $event" placeholder="Nom" class="member-row__name" />
-        <input type="number" min="0.5" step="0.5" [ngModel]="member.allocatedMinutes" (ngModelChange)="member.allocatedMinutes = $event" class="member-row__minutes" />
-        <span class="member-row__unit">min</span>
+        @if (!useUniformTime()) {
+          <input type="number" min="0.5" step="0.5" [ngModel]="member.allocatedMinutes" (ngModelChange)="member.allocatedMinutes = $event" class="member-row__minutes" />
+          <span class="member-row__unit">min</span>
+        }
         <button type="button" class="btn btn--danger" (click)="removeMember(member)">Retirer</button>
       </li>
     }

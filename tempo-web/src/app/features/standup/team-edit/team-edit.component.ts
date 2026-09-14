@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TeamRepository } from '../../../core/services/team-repository';
@@ -33,6 +33,8 @@ export class TeamEditComponent {
 
   readonly teamName = signal('');
   readonly members = signal<MemberDraft[]>([]);
+  readonly useUniformTime = signal(false);
+  readonly uniformMinutes = signal(DEFAULT_MINUTES_PER_MEMBER);
   readonly isEditing: boolean;
 
   constructor() {
@@ -50,12 +52,27 @@ export class TeamEditComponent {
         allocatedMinutes: m.allocatedSeconds / 60,
       })) ?? [],
     );
+    if (existing?.uniformSeconds != null) {
+      this.useUniformTime.set(true);
+      this.uniformMinutes.set(existing.uniformSeconds / 60);
+    }
+
+    // Tant que le temps unique est activé, tous les membres restent synchronisés dessus.
+    effect(() => {
+      const uniform = this.useUniformTime();
+      const minutes = this.uniformMinutes();
+      untracked(() => {
+        if (uniform) {
+          this.members.update((list) => list.map((m) => ({ ...m, allocatedMinutes: minutes })));
+        }
+      });
+    });
   }
 
   addMember(): void {
     this.members.update((list) => [
       ...list,
-      { id: createId(), name: '', allocatedMinutes: DEFAULT_MINUTES_PER_MEMBER },
+      { id: createId(), name: '', allocatedMinutes: this.useUniformTime() ? this.uniformMinutes() : DEFAULT_MINUTES_PER_MEMBER },
     ]);
   }
 
@@ -77,6 +94,7 @@ export class TeamEditComponent {
       name: this.teamName().trim(),
       createdAt: this.createdAt,
       updatedAt: new Date().toISOString(),
+      uniformSeconds: this.useUniformTime() ? Math.round(this.uniformMinutes() * 60) : null,
       members: this.members().map(
         (m): TeamMember => ({
           id: m.id,
