@@ -8,11 +8,19 @@
 
     <div class="section">
       <span class="section__label">Durées rapides</span>
-      <mat-chip-listbox class="presets" [value]="seconds() === 0 ? minutes() : null" (change)="selectPreset($event.value)" aria-label="Durées prédéfinies">
+      <div class="presets" role="group" aria-label="Durées prédéfinies">
         @for (p of presets; track p) {
-          <mat-chip-option [value]="p">{{ p }} min</mat-chip-option>
+          <button
+            type="button"
+            class="preset-btn"
+            [class.preset-btn--selected]="isPresetSelected(p)"
+            matRipple
+            (click)="selectPreset(p)"
+          >
+            {{ p }} min
+          </button>
         }
-      </mat-chip-listbox>
+      </div>
     </div>
 
     <div class="section">

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,7 @@ const PRESETS_MINUTES = [1, 3, 5, 10, 15, 20];
     FormsModule,
     RouterLink,
     MatButtonModule,
-    MatChipsModule,
+    MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -38,6 +38,10 @@ export class TimerPageComponent {
   selectPreset(minutes: number): void {
     this.minutes.set(minutes);
     this.seconds.set(0);
+  }
+
+  isPresetSelected(minutes: number): boolean {
+    return this.seconds() === 0 && this.minutes() === minutes;
   }
 
   begin(): void {

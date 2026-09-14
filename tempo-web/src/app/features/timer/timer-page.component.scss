@@ -36,39 +36,41 @@ h1 {
 
 .presets {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
 
-  ::ng-deep .mdc-evolution-chip-set__chips {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    width: 100%;
-    justify-content: stretch;
+.preset-btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0 0.5rem;
+  border: none;
+  border-radius: 14px;
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    background: var(--mat-sys-surface-container-highest);
   }
 
-  ::ng-deep mat-chip-option {
-    justify-content: center;
-  }
+  &--selected {
+    background: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+    box-shadow: var(--mat-sys-level1);
 
-  ::ng-deep .mdc-evolution-chip {
-    width: 100%;
-  }
-
-  ::ng-deep .mdc-evolution-chip__action--primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-
-  // La coche de sélection passe après le texte au lieu d'avant.
-  ::ng-deep .mdc-evolution-chip__graphic {
-    order: 2;
-    margin-inline-start: 4px;
-    margin-inline-end: 0;
-  }
-
-  ::ng-deep .mdc-evolution-chip__text-label {
-    order: 1;
+    &:hover {
+      background: var(--mat-sys-primary);
+    }
   }
 }
 
