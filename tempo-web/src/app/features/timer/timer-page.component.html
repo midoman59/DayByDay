@@ -6,21 +6,27 @@
   @if (phase() === 'setup') {
     <h1>Compte à rebours</h1>
 
-    <mat-button-toggle-group class="presets" [value]="seconds() === 0 ? minutes() : null" (change)="selectPreset($event.value)" aria-label="Durées prédéfinies">
-      @for (p of presets; track p) {
-        <mat-button-toggle [value]="p">{{ p }} min</mat-button-toggle>
-      }
-    </mat-button-toggle-group>
+    <div class="section">
+      <span class="section__label">Durées rapides</span>
+      <mat-chip-listbox class="presets" [value]="seconds() === 0 ? minutes() : null" (change)="selectPreset($event.value)" aria-label="Durées prédéfinies">
+        @for (p of presets; track p) {
+          <mat-chip-option [value]="p">{{ p }} min</mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </div>
 
-    <div class="manual-input">
-      <mat-form-field appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Minutes</mat-label>
-        <input matInput type="number" min="0" max="180" [ngModel]="minutes()" (ngModelChange)="minutes.set($event)" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Secondes</mat-label>
-        <input matInput type="number" min="0" max="59" [ngModel]="seconds()" (ngModelChange)="seconds.set($event)" />
-      </mat-form-field>
+    <div class="section">
+      <span class="section__label">Ou personnalisé</span>
+      <div class="manual-input">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Minutes</mat-label>
+          <input matInput type="number" min="0" max="180" [ngModel]="minutes()" (ngModelChange)="minutes.set($event)" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Secondes</mat-label>
+          <input matInput type="number" min="0" max="59" [ngModel]="seconds()" (ngModelChange)="seconds.set($event)" />
+        </mat-form-field>
+      </div>
     </div>
 
     <button mat-fab extended color="primary" class="btn-start" [disabled]="durationSeconds() <= 0" (click)="begin()">
