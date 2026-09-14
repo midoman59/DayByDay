@@ -17,7 +17,7 @@ module.exports = function (config) {
       suppressAll: true,
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/daybyday-web'),
+      dir: require('path').join(__dirname, './coverage/tempo-web'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'text-summary' }],
     },
