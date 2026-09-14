@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TeamRepository } from '../../../core/services/team-repository';
 import { Team, TeamMember } from '../../../core/models/team.model';
+import { TimeStepperComponent } from '../../../shared/time-stepper/time-stepper.component';
 
 interface MemberDraft {
   id: string;
@@ -23,7 +24,7 @@ function createId(): string {
 
 @Component({
   selector: 'app-team-edit',
-  imports: [FormsModule, RouterLink, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSlideToggleModule],
+  imports: [FormsModule, RouterLink, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSlideToggleModule, TimeStepperComponent],
   templateUrl: './team-edit.component.html',
   styleUrl: './team-edit.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

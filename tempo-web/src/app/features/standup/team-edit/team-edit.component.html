@@ -16,11 +16,7 @@
     </mat-slide-toggle>
 
     @if (useUniformTime()) {
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="uniform-row__minutes">
-        <mat-label>Temps par personne</mat-label>
-        <input matInput type="number" min="0.5" step="0.5" [ngModel]="uniformMinutes()" (ngModelChange)="uniformMinutes.set($event)" />
-        <span matSuffix>min</span>
-      </mat-form-field>
+      <app-time-stepper [value]="uniformMinutes()" (valueChange)="uniformMinutes.set($event)" />
     }
   </div>
 
@@ -38,11 +34,7 @@
           <input matInput type="text" [ngModel]="member.name" (ngModelChange)="member.name = $event" />
         </mat-form-field>
         @if (!useUniformTime()) {
-          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="member-row__minutes">
-            <mat-label>Temps</mat-label>
-            <input matInput type="number" min="0.5" step="0.5" [ngModel]="member.allocatedMinutes" (ngModelChange)="member.allocatedMinutes = $event" />
-            <span matSuffix>min</span>
-          </mat-form-field>
+          <app-time-stepper [value]="member.allocatedMinutes" (valueChange)="member.allocatedMinutes = $event" />
         }
         <button mat-icon-button color="warn" (click)="removeMember(member)" aria-label="Retirer">
           <span class="material-symbols-rounded">close</span>

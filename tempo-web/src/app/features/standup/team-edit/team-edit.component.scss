@@ -25,10 +25,6 @@ mat-form-field {
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
-
-  &__minutes {
-    width: 9rem;
-  }
 }
 
 .empty {
@@ -46,15 +42,11 @@ mat-form-field {
 
 .member-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
 
   &__name {
     flex: 1;
-  }
-
-  &__minutes {
-    width: 6.5rem;
   }
 }
 

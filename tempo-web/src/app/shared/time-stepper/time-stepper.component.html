@@ -1,0 +1,9 @@
+<div class="time-stepper">
+  <button type="button" mat-icon-button class="time-stepper__btn" [disabled]="value() <= min()" (click)="decrement()" aria-label="Diminuer le temps">
+    <span class="material-symbols-rounded">remove</span>
+  </button>
+  <span class="time-stepper__value">{{ value() }} min</span>
+  <button type="button" mat-icon-button class="time-stepper__btn" (click)="increment()" aria-label="Augmenter le temps">
+    <span class="material-symbols-rounded">add</span>
+  </button>
+</div>
