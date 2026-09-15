@@ -10,8 +10,14 @@ import { MascotComponent } from '../mascot/mascot.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountdownTimerComponent {
-  /** Durée totale en secondes. Changer cette valeur réinitialise le compteur. */
+  /** Durée totale en secondes. */
   durationSeconds = input.required<number>();
+  /**
+   * Identifiant du "tour" en cours (ex: l'id du membre dont c'est le passage).
+   * Le minuteur se réinitialise dès que cette valeur change — même si la durée,
+   * elle, reste identique d'un tour à l'autre (deux membres avec le même temps alloué).
+   */
+  resetKey = input<string | number>(0);
   /** Démarre automatiquement dès que la durée est (ré)initialisée. */
   autoStart = input<boolean>(false);
   showMascot = input<boolean>(true);
@@ -50,6 +56,7 @@ export class CountdownTimerComponent {
     effect(() => {
       const duration = this.durationSeconds();
       const shouldAutoStart = this.autoStart();
+      this.resetKey(); // lu pour être suivi par l'effet, même si sa valeur ne sert pas ici.
       untracked(() => {
         this.stopInterval();
         this.remainingSeconds.set(duration);

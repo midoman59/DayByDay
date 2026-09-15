@@ -20,7 +20,7 @@
       @if (currentMember(); as member) {
         <div class="speaker">
           <h2>{{ member.name }}</h2>
-          <app-countdown-timer [durationSeconds]="member.allocatedSeconds" [autoStart]="true" />
+          <app-countdown-timer [durationSeconds]="member.allocatedSeconds" [resetKey]="member.id" [autoStart]="true" />
         </div>
 
         @if (nextMember(); as next) {
